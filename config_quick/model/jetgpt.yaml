@@ -1,0 +1,31 @@
+_target_: src.eventgen.jetgpt.JetGPT
+n_gauss: null
+bayesian: true
+
+pformer:
+ _target_: src.networks.transformer.Transformer
+ 
+ in_channels: null
+ out_channels: ${model.pformer.hidden_channels}
+
+ hidden_channels: 64
+ num_blocks: 2
+ num_heads: 4
+ increase_hidden_channels: 2
+ multi_query: false
+
+ bayesian: false
+
+cformer:
+ _target_: src.networks.transformer.Transformer
+ 
+ in_channels: null
+ out_channels: null
+
+ hidden_channels: ${model.pformer.hidden_channels}
+ num_blocks:  ${model.pformer.num_blocks}
+ num_heads:  ${model.pformer.num_heads}
+ increase_hidden_channels:  ${model.pformer.increase_hidden_channels}
+ multi_query: ${model.pformer.multi_query}
+
+ bayesian: ${model.bayesian}

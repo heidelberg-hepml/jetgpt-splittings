@@ -1,0 +1,6 @@
+_target_: src.eventgen.jetgptextendloss.JetGPTExtendLoss
+loss_lambda: 1.0
+warmup_steps: 0
+
+defaults:
+- jetgpt

@@ -1,0 +1,17 @@
+exp_type: zmumu
+exp_name: zmumu_debug
+
+data:
+ n_jets: [0,1,2,3]
+ n_jets_train: [0,1,2]
+ n_jets_max: 4
+ data_path: data
+ data_path_0j: ${data.data_path}/zmumu_0j_497M.npy
+ data_path_1j: ${data.data_path}/zmumu_1j_497M.npy
+ data_path_2j: ${data.data_path}/zmumu_2j_497M.npy
+ data_path_3j: ${data.data_path}/zmumu_3j_497M.npy
+ data_path_4j: ${data.data_path}/zmumu_4j_497M.npy
+ data_path_5j: ${data.data_path}/zmumu_5j_497M.npy
+
+defaults:
+- eventgen

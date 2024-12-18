@@ -1,0 +1,36 @@
+data:
+ test_val_train: [.1, .1, .5]
+ enforce_pt_order: false
+ 
+preprocessing:
+ preprocessor: RelPhiPreprocessing
+ float64: true
+
+training:
+ iterations: 100
+ batchsize: 1024
+ scheduler: ReduceLROnPlateau
+
+evaluation:
+ sample: true
+ save_samples: false
+ nsamples: 10000
+ nsamples_BNN: 10
+ batchsize: 512
+ log_prob: []
+
+plot: true
+plotting:
+ loss: true
+ fourmomenta: false
+ jetmomenta: true
+ preprocessed: false
+ conservation: true
+ virtual: false
+ delta: false
+ deta_dphi: false
+ prob_stop: true
+
+defaults:
+- model: jetgpt
+- default

@@ -1,0 +1,16 @@
+exp_type: ttbar
+exp_name: ttbar_debug
+
+data:
+ n_jets: [0,1,2]
+ n_jets_train: [0, 1]
+ n_jets_max: 5
+ data_path: data
+ data_path_0j: ${data.data_path}/ttbar_0j.npy
+ data_path_1j: ${data.data_path}/ttbar_1j.npy
+ data_path_2j: ${data.data_path}/ttbar_2j.npy
+ data_path_3j: ${data.data_path}/ttbar_3j.npy
+ data_path_4j: ${data.data_path}/ttbar_4j.npy 
+
+defaults:
+- eventgen

@@ -1,0 +1,19 @@
+## Code quality
+black==22.3.0
+
+## Standard science stack
+matplotlib
+numpy
+
+## Standard utils
+tqdm
+
+## Deep learning
+torch>=2.2.0
+torch-ema
+lion-pytorch==0.1.4
+schedulefree==1.2.5
+
+## Experiment management
+hydra-core
+mlflow==2.4.1 # avoid database version issues

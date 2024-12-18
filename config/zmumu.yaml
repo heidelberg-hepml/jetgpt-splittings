@@ -1,0 +1,22 @@
+exp_type: zmumu
+exp_name: zmumu
+
+data:
+ n_jets: [0,1,2,3,4,5,6,7,8]
+ n_jets_train: [0,1,2,3,4,5,6]
+ n_jets_max: 9
+ data_path: data
+ data_path_0j: ${data.data_path}/zmumu_0j_499M_cap3j.npy
+ data_path_1j: ${data.data_path}/zmumu_1j_499M_cap3j.npy
+ data_path_2j: ${data.data_path}/zmumu_2j_499M_cap3j.npy
+ data_path_3j: ${data.data_path}/zmumu_3j_499M.npy
+ data_path_4j: ${data.data_path}/zmumu_4j_499M.npy
+ data_path_5j: ${data.data_path}/zmumu_5j_499M.npy
+ data_path_6j: ${data.data_path}/zmumu_6j_499M.npy
+ data_path_7j: ${data.data_path}/zmumu_7j_499M.npy
+ data_path_8j: ${data.data_path}/zmumu_8j_499M.npy
+ data_path_9j: ${data.data_path}/zmumu_9j_499M.npy
+ data_path_10j: ${data.data_path}/zmumu_10j_499M.npy
+
+defaults:
+- eventgen

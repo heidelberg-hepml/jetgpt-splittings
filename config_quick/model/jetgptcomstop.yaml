@@ -1,0 +1,11 @@
+_target_: src.eventgen.jetgptcomstop.JetGPTCoMStop
+com_channels: [0,2]
+use_hard_cond: True
+hard_cond_dim: ${model.pformer.hidden_channels}
+
+mlp_hidden_channels: 128
+mlp_layers: 2
+mlp_pdrop: null
+
+defaults:
+- jetgpt
