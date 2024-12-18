@@ -1,0 +1,12 @@
+name: Transformer
+
+net:
+ _target_: src.networks.Transformer_mingpt
+
+ num_blocks: 2
+ hidden_channels: 16
+ num_heads: 2
+ increase_mlp: 4
+
+ resid_pdrop: 0.1
+ attn_pdrop: 0.1

@@ -1,0 +1,12 @@
+# files created by the os
+*__pycache__*
+*~*
+*venv/*
+*.DS_Store
+
+# these directories might be created at some point,
+# but we want to not sync them with git
+runs/
+outputs/
+mlruns/
+scripts/

@@ -1,0 +1,159 @@
+exp_name: ???
+exp_type: ???
+run_name: null
+base_dir: .
+
+seed: null
+debug: false
+
+warm_start_idx: null
+warm_start_stage: gen
+use_mlflow: true
+save_source: true
+
+data:
+ train_test_val: [.5, .4, .1]
+
+backend:
+ float16: false
+ enable_flash_sdp: false
+ enable_math_sdp: true
+ enable_mem_efficient_sdp: false
+
+prep_gen:
+ virtual: false
+ phi_rel: true
+ eta_rel: false
+ gaussianize: true
+ pt_cut: [0,0,20,20,20,20,20]
+ standardize: true
+ final_arcsinh: []
+
+prep_cls:
+ naive:
+  use: true
+  gaussianize: true
+  pt_cut: ${prep_gen.pt_cut}
+  channels: null
+ virtual:
+  use: false
+  gaussianize: true
+ delta_r:
+  use: false
+  invert: false
+ delta_phi:
+  use: false
+ delta_eta:
+  use: false
+ standardize: true
+
+train_gen: true
+training_gen:
+ early_stopping: false
+ es_patience: 10
+ es_load_best_model: false
+ validate_every_n_epochs: 1
+ batchsize: 512
+ batchsize_eval: 1024
+ nepochs: 2
+
+ clip_grad_norm: 100
+ log_every_n_steps: 1000
+ 
+ optimizer : Adam
+ scheduler: null
+ lr: 3e-4
+ betas: [.9, .999]
+ eps: 1e-8
+ lr_eta_min: 0
+ lr_factor: 0.1
+ lr_patience: 10
+
+ save_best_model: true
+
+discformer:
+ iterations: 1
+ nsamples_discifier: 10000
+ nsamples_discformer: 10000
+ nepochs: 2
+ plot_only: false
+
+ discifier:
+   warm_start: false
+   warm_start_idx: 0
+
+ discformation:
+  sample_model: false
+  weight_gen_max: 0.99
+  weight_cls_max: 0.99
+  weight_full_max: 0.99
+  weight_df_max: null
+  factor_max: null
+  alpha_scheduler: null
+  alpha: 1
+  detach_factor: true
+  quantiles: [.05, .5, .95]
+
+training_cls:
+ early_stopping: true
+ es_patience: 10
+ es_load_best_model: true
+ validate_every_n_epochs: 1
+ batchsize: 512
+ batchsize_eval: 1024
+ nepochs: 5
+
+ clip_grad_norm: 10
+ log_every_n_steps: 1000
+
+ optimizer: Adam
+ scheduler: null
+ lr: 3e-4
+ betas: [.9, .999]
+ eps: 1e-8
+
+ save_best_model: true
+
+ gen_samples: 10000
+ train_val: [.9, .1]
+
+sample: true
+sampling:
+ nsamples: 100000
+ batchsize: 1024
+
+reweight: true
+
+plot: true
+plotting:
+ jetmomenta: true
+ delta: true
+ deta_dphi: true
+ virtual: true
+ preprocessed: true
+ classifier: true
+ distributions_masked:
+  use: false
+  weight_cut: 0.1
+  cut_above: true
+ classifier_masked: true
+ classifier_preprocessed: false
+ discformer:
+  reweighted_test: false
+  reweighted_model: false
+  discformed: false
+  resample: true
+  metrics: true
+ jsdiv: false
+ w_max: 10
+
+mlflow:
+ db: '${base_dir}/runs/${exp_name}/mlflow/mlflow.db'
+ artifacts: '${base_dir}/runs/${exp_name}/mlflow/artifacts'
+ runname: null
+
+defaults:
+ - generator: jetgpt
+ - classifier: mlp
+ - hydra
+ - _self_

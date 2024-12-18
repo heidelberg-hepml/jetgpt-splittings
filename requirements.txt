@@ -1,0 +1,9 @@
+black==22.3.0
+matplotlib
+numpy
+scipy
+torch==2.0.1
+hydra-core
+mlflow==2.4.1
+scikit-learn
+einops

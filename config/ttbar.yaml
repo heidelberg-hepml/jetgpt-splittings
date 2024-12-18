@@ -1,0 +1,39 @@
+exp_name: ttbar_local
+exp_type: ttbar
+
+data:
+ data_path: data/
+ file_0j: ttbar_0j_200M.npy
+ file_1j: ttbar_1j_200M.npy
+ file_2j: ttbar_2j_200M.npy
+ file_3j: ttbar_3j_200M.npy
+ file_4j: ttbar_4j_200M.npy
+ n_jets_list: [4]
+ channels: [0,1,2,4,5,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39]
+
+prep_gen:
+ phi_rel: True
+ eta_rel: False
+ gaussianize: true
+ pt_cut: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+ standardize: true
+ final_arcsinh: []
+
+prep_cls:
+ virtual:
+  use: true
+  channels: null
+  components: null
+ delta_r:
+  use: true
+  invert: true
+ delta_phi:
+  use: true
+ delta_eta:
+  use: true
+
+sampling:
+ nsamples: 10000
+
+defaults:
+ - default

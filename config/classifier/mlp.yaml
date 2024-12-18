@@ -1,0 +1,9 @@
+name: MLP
+
+net:
+ _target_: src.networks.MLP
+ 
+ in_channels: 1 # set this dynamically
+ out_channels: 1
+ hidden_channels: 32
+ num_layers: 3
