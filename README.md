@@ -1,13 +1,22 @@
-# jetGPT
+<div align="center">
 
-Code for LHC event generation with autoregressive transformers, supported by various classifiers. The implemented processes are $p p\to Z(\mu \mu)$, $p p \to t (b j j) \bar t (\bar b j j)$, both with variable numbers of extra jets.
+# Extrapolating Jet Radiation with Autoregressive Transformers
+
+[![JetGPT](http://img.shields.io/badge/paper-arxiv.2412.12074-B31B1B.svg)](https://arxiv.org/abs/2412.12074)
+[![pytorch](https://img.shields.io/badge/PyTorch_2.2+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
+[![hydra](https://img.shields.io/badge/Config-Hydra_1.3-89b8cd)](https://hydra.cc/)
+[![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
+
+</div>
+
+This repository contains the official implementation of **Extrapolating Jet Radiation with Autoregressive Transformers)** by Anja Butter, Francois Charton, [Javier Marino Villadamigo](mailto:marino@thphys.uni-heidelberg.de), [Ayodele Ore](ore@thphys.uni-heidelberg.de), Tilman Plehn, and [Jonas Spinner](mailto:j.spinner@thphys.uni-heidelberg.de).
 
 ## 1. Getting started
 
 Clone the repository.
 
 ```bash
-git clone https://github.com/heidelberg-hepml/jetgpt
+git clone https://github.com/heidelberg-hepml/jetgpt-splittings
 ```
 
 Create a virtual environment and install requirements
@@ -18,7 +27,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Modify the base_dir in config/default.yaml. Ask Maeve or Jonas for the training data and put the path to the datasets in the data section of config/zmumu.yaml or config/ttbar.yaml.
+* We have two datasets implemented. First, the $p p\to Z(\mu \mu) + n\ j$ dataset is used in the paper but not published. We are happy to share it upon request. Alternatively, the $p p \to t (b j j) \bar t (\bar b j j) + n\ j$ dataset is also implemented and available on [this link](https://www.thphys.uni-heidelberg.de/~plehn/data/event_generation_ttbar.hdf5), a simple script to download and extract the dataset is available [here](https://github.com/heidelberg-hepml/lorentz-gatr/blob/main/data/collect_data.py ). 
 
 ## 2. Running experiments
 
@@ -27,20 +36,31 @@ The most basic way of running an experiment is
 python run.py
 ```
 
-This will load the default config file (config/zmumu.yaml) and start the corresponding experiment using the default generator (config/generator/jetgpt.yaml) and default classifier (config/classifier/mlp.py). Note that hydra collects multiple .yaml file into the full configuration used for the run, this is handled by the defaults section within the main loaded file.
+This will load the default config file (`config_quick/zmumu.yaml`) and start the corresponding experiment using the default generator (`config_quick/model/jetgpt.yaml`). Note that hydra collects multiple `.yaml` file into the full configuration used for the run, this is handled by the defaults section within the main loaded file.
 
 We use the tool hydra for configuration management, allowing us to easily override all parameters without having to modify the .yaml file for each run. A typical run would look like
 ```
-python run.py model=jetgpt exp_name=jetgpt_test run_name=helloworld exp_type=zmumu training_gen.nepochs=2 sampling.nsamples=10000
+python run.py model=jetgpt exp_name=jetgpt_test run_name=helloworld exp_type=zmumu training.iterations=10000 evaluation.nsamples=10000
 ```
 
-Tests are organized as experiments, which each contain multiple runs. We use mlflow to track metrics during training and save them to a database object within the mlflow folder for each experiment. The mlflow web interface is useful to keep an overview over the sometimes confusing amount of metrics arising during the training of the different models within this code. A local mlflow web interface using port 4242 can be started with the command
-```
-mlflow ui --port 4242 --backend-store-uri sqlite:///path/to/mlflow/mlflow.db
+If you want to reproduce the results presented in the paper, use the config cards in the `config/` folder.
+
+## 3. Citation
+
+If you find this code useful in your research, please cite the following paper
+
+```bibtex
+@article{Butter:2024zbd,
+    author = "Butter, Anja and Charton, Fran\c{c}ois and Villadamigo, Javier Mari\~no and Ore, Ayodele and Plehn, Tilman and Spinner, Jonas",
+    title = "{Extrapolating Jet Radiation with Autoregressive Transformers}",
+    eprint = "2412.12074",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ph",
+    month = "12",
+    year = "2024"
+}
 ```
 
-Finally, existing runs can be reloaded to perform additional tests or continue training. For a previous run with exp_name=exp and run_name=run, one can use the --config-name (-cn) and --config-path (-cp) options to overwrite the defaults in run.py. Further, one can use the warm_start_idx option to specify which model state should be loaded (defaults to 0, which is the model after the first run), and warm_start_stage to specify which model stage should be loaded (defaults to gen which is plain generator; relevant when discformer is trained). The full command is
-```
-python run.py -cp runs/exp/run -cn config warm_start_idx=0 warm_start_stage=gen
-```
-Currently there is no option for loading classifiers to keep the code simple, but this would be straight-forward because their weights are saved anyway for early stopping. 
+
+
+
